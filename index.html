@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ريماس - ملكة القلب</title>
+    <!-- استدعاء Tailwind CSS للتصميم -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- استدعاء أيقونات Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            -webkit-tap-highlight-color: transparent; /* إزالة لون التحديد عند اللمس في الموبايل */
+        }
+
+        /* أنيميشن القلوب العائمة */
+        @keyframes float-up {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+            50% { opacity: 1; }
+            100% { transform: translate(-50%, -150px) scale(1.5); opacity: 0; }
+        }
+        .animate-float-up {
+            animation: float-up 1s ease-out forwards;
+        }
+
+        /* أنيميشن الظهور */
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+        .animate-slide-up {
+            animation: slideUp 0.8s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* إخفاء الأقسام غير النشطة */
+        .hidden-section {
+            display: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-950 text-white overflow-x-hidden selection:bg-pink-500 selection:text-white relative touch-manipulation" onclick="createFloatingHeart(event)">
+
+    <!-- خلفية النجوم المتحركة -->
+    <div class="fixed inset-0 pointer-events-none opacity-20 z-0">
+        <div class="absolute top-10 left-10 w-2 h-2 bg-white rounded-full animate-pulse"></div>
+        <div class="absolute top-40 right-20 w-1 h-1 bg-pink-400 rounded-full animate-ping"></div>
+        <div class="absolute bottom-20 left-1/3 w-3 h-3 bg-purple-400 rounded-full animate-bounce"></div>
+        <div class="absolute top-1/2 right-10 w-2 h-2 bg-white rounded-full animate-pulse"></div>
+    </div>
+
+    <!-- شريط التنقل -->
+    <nav class="fixed top-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-pink-900/30 shadow-lg">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="text-xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent flex items-center gap-2">
+                <i data-lucide="moon" class="text-pink-500 w-6 h-6 fill-current"></i>
+                Rimas
+            </div>
+            <div class="flex gap-3 text-sm font-medium">
+                <button onclick="switchSection('home')" id="btn-home" class="text-pink-400 hover:text-pink-300 transition px-2 py-1">الرئيسية</button>
+                <button onclick="switchSection('beauty')" id="btn-beauty" class="text-slate-400 hover:text-pink-300 transition px-2 py-1">جمالك</button>
+                <button onclick="switchSection('love')" id="btn-love" class="text-slate-400 hover:text-pink-300 transition px-2 py-1">رسالتي</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="pt-24 pb-20 px-4 max-w-3xl mx-auto text-center relative z-10 min-h-screen flex flex-col justify-center">
+        
+        <!-- قسم الرئيسية -->
+        <div id="section-home" class="animate-fade-in">
+            <div class="mb-10">
+                <div class="inline-block p-2 px-4 rounded-full bg-pink-900/30 border border-pink-500/30 text-pink-300 text-xs mb-6 animate-pulse">
+                    إلى أميرتي الوحيدة
+                </div>
+                <h1 class="text-5xl font-extrabold mb-6 leading-tight">
+                    أنتي <span class="bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">الكون</span> <br /> 
+                    كله يا ريماس
+                </h1>
+                <p class="text-slate-300 text-lg leading-relaxed max-w-2xl mx-auto px-4">
+                    صممت هذا المكان ليكون مرآة صغيرة جداً تعكس جزءاً بسيطاً من جمالك الطاغي الذي لا تصفه الكلمات.
+                </p>
+            </div>
+
+            <!-- مشغل موسيقى وهمي -->
+            <div class="bg-slate-900/50 p-4 rounded-2xl border border-slate-800 backdrop-blur-sm max-w-xs mx-auto shadow-2xl shadow-purple-900/20 mb-8">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 bg-gradient-to-br from-pink-500 to-purple-600 rounded-lg flex items-center justify-center shadow-lg">
+                        <i data-lucide="music" class="text-white w-6 h-6"></i>
+                    </div>
+                    <div class="text-right flex-1">
+                        <h3 class="font-bold text-white text-sm">نبض قلبي</h3>
+                        <p class="text-slate-400 text-xs">أنتي الأغنية الأجمل</p>
+                    </div>
+                </div>
+                <div class="mt-4 w-full bg-slate-700 h-1 rounded-full overflow-hidden">
+                    <div class="bg-pink-500 h-full w-2/3 rounded-full relative">
+                        <div class="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full shadow-lg"></div>
+                    </div>
+                </div>
+                <div class="flex justify-between mt-2 text-[10px] text-slate-500">
+                    <span>∞</span>
+                    <span>0:00</span>
+                </div>
+            </div>
+
+            <button onclick="switchSection('beauty')" class="bg-gradient-to-r from-pink-600 to-purple-600 active:scale-95 text-white py-3 px-8 rounded-full font-bold shadow-lg shadow-pink-500/30 transform transition duration-300 flex items-center gap-2 mx-auto">
+                اكتشفي جمالك <i data-lucide="sparkles" class="w-4 h-4"></i>
+            </button>
+        </div>
+
+        <!-- قسم الجمال -->
+        <div id="section-beauty" class="hidden-section animate-slide-up space-y-12 pb-10">
+            <h2 class="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-pink-300 to-purple-300 bg-clip-text text-transparent">تفاصيلك بتنحب</h2>
+            
+            <!-- بطاقة العيون -->
+            <div class="bg-slate-900/60 p-6 rounded-3xl border border-slate-800 active:border-pink-500/50 transition duration-300 text-right shadow-lg">
+                <div class="flex items-center justify-end gap-3 mb-3">
+                    <h3 class="text-xl font-bold text-pink-300">عيونك سحر</h3>
+                    <div class="p-2 bg-pink-500/20 rounded-full">
+                        <i data-lucide="stars" class="w-5 h-5 text-pink-400"></i>
+                    </div>
+                </div>
+                <p class="text-slate-300 leading-loose text-sm">
+                    عيونك يا ريماس مش بس عيون، هدول مجرة كاملة بتوه فيها. نظرة وحدة منك كفيلة إنها تمحي كل تعب الدنيا. سبحان اللي رسم هالجمال وخبا فيه كل أسرار الجاذبية. عيونك وطن وأنا اللاجئ المغرم.
+                </p>
+            </div>
+
+            <!-- بطاقة الشفاه -->
+            <div class="bg-slate-900/60 p-6 rounded-3xl border border-slate-800 active:border-red-500/50 transition duration-300 text-right shadow-lg">
+                <div class="flex items-center justify-end gap-3 mb-3">
+                    <h3 class="text-xl font-bold text-red-300">شفافك والضحكة</h3>
+                    <div class="p-2 bg-red-500/20 rounded-full">
+                        <i data-lucide="heart" class="w-5 h-5 text-red-400 fill-current"></i>
+                    </div>
+                </div>
+                <p class="text-slate-300 leading-loose text-sm">
+                    ورسمة شفافك حكاية تانية، متل الكرز، متل الورد الجوري لما يفتح. كل كلمة بتطلع منك بتصير حلوة، والابتسامة؟ الابتسامة بترد الروح وبتخلي القلب يدق ألف دقة بالثانية. مكان البوسة محجوز ومحفوظ.
+                </p>
+            </div>
+
+            <!-- بطاقة الأقدام -->
+            <div class="bg-slate-900/60 p-6 rounded-3xl border border-slate-800 active:border-purple-500/50 transition duration-300 text-right shadow-lg">
+                <div class="flex items-center justify-end gap-3 mb-3">
+                    <h3 class="text-xl font-bold text-purple-300">خطواتك حرير</h3>
+                    <div class="p-2 bg-purple-500/20 rounded-full">
+                        <i data-lucide="footprints" class="w-5 h-5 text-purple-400"></i>
+                    </div>
+                </div>
+                <p class="text-slate-300 leading-loose text-sm">
+                    حتى أجريكي يا ريماس، قطع من السكر بتمشي على الأرض. كل خطوة بتمشيها بتخلي الأرض تحلى. ناعمة، صغيرة، وبريئة، بتنحب وبتنباس متل ما قلبي بيحبك. من ساسك لراسك، أنتي لوحة فنية، سبحان من سواكي آية في الجمال.
+                </p>
+            </div>
+        </div>
+
+        <!-- قسم الحب والرسالة -->
+        <div id="section-love" class="hidden-section animate-fade-in flex flex-col items-center justify-center min-h-[50vh]">
+            
+            <div id="love-preview" class="text-center w-full">
+                 <i data-lucide="gift" class="w-20 h-20 text-pink-500 mx-auto mb-6 animate-bounce"></i>
+                 <h2 class="text-2xl font-bold mb-6">عندي إلك سر...</h2>
+                 <button 
+                  onclick="toggleMessage(true)"
+                  class="bg-white text-pink-600 font-bold py-3 px-8 rounded-full shadow-lg active:bg-gray-200 transition"
+                 >
+                   افتحي الرسالة
+                 </button>
+            </div>
+
+            <div id="love-content" class="hidden bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20 relative overflow-hidden w-full max-w-sm mx-auto shadow-2xl">
+                <div class="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
+                  <i data-lucide="heart" class="w-32 h-32 text-pink-500 fill-current"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-pink-300 mb-4">يا حبيبة العمر</h3>
+                <p class="text-md leading-loose text-slate-100 mb-6">
+                  ما في شي بالدنيا بيسوى لحظة جنبك. أنتي مش بس حبيبتي، أنتي بنتي، ورفيقتي، ودنيتي كلها.
+                  <br /><br />
+                  بدي ضل جنبك، بوس عيونك، وادلعك لآخر يوم بعمري.
+                </p>
+                <div class="text-xs text-slate-400 font-mono mt-4 text-left" dir="ltr">
+                  - حبيبك المجنون فيكي
+                </div>
+                <button 
+                  onclick="toggleMessage(false)"
+                  class="mt-6 text-pink-400 text-sm active:text-white transition flex items-center justify-center gap-2 w-full py-2"
+                >
+                  <i data-lucide="send" class="w-4 h-4"></i> إرسال حبي
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- الفوتر -->
+    <footer class="text-center py-6 text-slate-600 text-xs relative z-10">
+        <p>مصنوع بكل حب لعيون ريماس ❤️</p>
+    </footer>
+
+    <!-- سكريبت الجافاسكريبت للتحكم بالموقع -->
+    <script>
+        // تفعيل الأيقونات
+        lucide.createIcons();
+
+        // دالة التنقل بين الأقسام
+        function switchSection(sectionId) {
+            // إخفاء جميع الأقسام
+            document.getElementById('section-home').classList.add('hidden-section');
+            document.getElementById('section-beauty').classList.add('hidden-section');
+            document.getElementById('section-love').classList.add('hidden-section');
+            
+            // إظهار القسم المطلوب
+            const activeSection = document.getElementById('section-' + sectionId);
+            activeSection.classList.remove('hidden-section');
+            
+            // إعادة تشغيل الأنيميشن
+            activeSection.style.animation = 'none';
+            activeSection.offsetHeight; /* trigger reflow */
+            activeSection.style.animation = null; 
+
+            // تحديث ألوان الأزرار في الناف بار
+            updateNavButtons(sectionId);
+            
+            // التمرير لأعلى الصفحة
+            window.scrollTo(0, 0);
+        }
+
+        // دالة تحديث أزرار الناف بار
+        function updateNavButtons(activeId) {
+            const buttons = ['home', 'beauty', 'love'];
+            buttons.forEach(id => {
+                const btn = document.getElementById('btn-' + id);
+                if (id === activeId) {
+                    btn.classList.remove('text-slate-400');
+                    btn.classList.add('text-pink-400');
+                } else {
+                    btn.classList.add('text-slate-400');
+                    btn.classList.remove('text-pink-400');
+                }
+            });
+        }
+
+        // دالة إظهار/إخفاء الرسالة
+        function toggleMessage(show) {
+            const preview = document.getElementById('love-preview');
+            const content = document.getElementById('love-content');
+            
+            if (show) {
+                preview.classList.add('hidden');
+                content.classList.remove('hidden');
+                content.classList.add('animate-fade-in');
+            } else {
+                content.classList.add('hidden');
+                preview.classList.remove('hidden');
+                preview.classList.add('animate-fade-in');
+            }
+        }
+
+        // دالة إنشاء القلوب العائمة
+        function createFloatingHeart(e) {
+            // التحقق من أن الضغط ليس على زر تفاعلي لتجنب التعارض
+            if (e.target.closest('button')) return;
+
+            const heart = document.createElement('div');
+            heart.innerHTML = '<i data-lucide="heart" class="w-6 h-6 fill-current"></i>';
+            heart.className = 'fixed pointer-events-none text-pink-500 animate-float-up z-50';
+            
+            // ضبط موقع القلب مكان اللمسة
+            heart.style.left = e.clientX + 'px';
+            heart.style.top = e.clientY + 'px';
+            
+            document.body.appendChild(heart);
+            
+            // تفعيل أيقونة القلب داخل العنصر الجديد
+            lucide.createIcons({
+                root: heart
+            });
+
+            // حذف العنصر بعد انتهاء الأنيميشن
+            setTimeout(() => {
+                heart.remove();
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
+
+
